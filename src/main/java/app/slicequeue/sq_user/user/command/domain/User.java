@@ -45,6 +45,7 @@ public class User extends BaseTimeSoftDeletedAtEntity {
     private String pwd;
 
     @NotBlank(message = "nickname must not be blank.")
+    @Column(nullable = false, length = 128)
     private String nickname;
 
     @Convert(converter = MapToJsonConverter.class)
