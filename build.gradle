@@ -1,0 +1,52 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'app.slicequeue'
+version = '0.0.1'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven {
+		url = uri("https://af.slicequeue.app/artifactory/gradle-dev")
+		credentials {
+			username = findProperty("ARTIFACTORY_USER") as String
+			password = findProperty("ARTIFACTORY_PASSWORD") as String
+		}
+	}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testRuntimeOnly 'com.h2database:h2:2.2.224'
+
+	implementation 'app.slicequeue:sq-common-resp-excp:0.0.2'
+	implementation 'app.slicequeue:sq-common-base-snowflake-id-entity:0.0.2'
+	implementation 'app.slicequeue:sq-common-base-time-entity:0.0.3'
+	implementation 'app.slicequeue:sq-common-snowflake:0.0.1'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
