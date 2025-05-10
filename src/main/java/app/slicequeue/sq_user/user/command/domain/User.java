@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Map;
 
@@ -67,13 +68,14 @@ public class User extends BaseTimeSoftDeletedAtEntity {
         return user;
     }
 
-    public static User create(CreateUserCommand command) {
+    public static User create(CreateUserCommand command, PasswordEncoder passwordEncoder) {
         User user = new User();
         user.userId = UserId.generateId();
         user.projectId = command.projectId();
         user.state = stateOrDefault(command);
         user.loginId = command.loginId();
         user.pwd = command.pwd();
+        user.encodePwd(passwordEncoder);
         user.nickname = command.nickname();
         user.profile = command.profile();
         return user;
@@ -81,5 +83,13 @@ public class User extends BaseTimeSoftDeletedAtEntity {
 
     private static UserState stateOrDefault(CreateUserCommand command) {
         return command.state() != null ? command.state() : UserState.ACTIVE;
+    }
+
+    private void encodePwd(PasswordEncoder passwordEncoder) {
+        this.pwd = passwordEncoder.encode(this.pwd);
+    }
+
+    public boolean matchPassword(String rawPwd, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(rawPwd, this.pwd);
     }
 }
