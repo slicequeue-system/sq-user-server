@@ -2,8 +2,11 @@ package app.slicequeue.sq_user.user.command.domain;
 
 import app.slicequeue.common.base.time_entity.BaseTimeSoftDeletedAtEntity;
 import app.slicequeue.sq_user.common.converter.MapToJsonConverter;
+import app.slicequeue.sq_user.user.command.domain.dto.CreateUserCommand;
 import app.slicequeue.sq_user.user.command.domain.type.UserState;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,19 +25,24 @@ public class User extends BaseTimeSoftDeletedAtEntity {
     @AttributeOverride(name = "id", column = @Column(name = "user_id"))
     private UserId userId;
 
+    @NotNull(message = "projectId must not be null.")
     @Column(nullable = false)
     private Long projectId;
 
+    @NotNull(message = "state must not be null.")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserState state;
 
+    @NotBlank(message = "loginId must not be blank.")
     @Column(nullable = false, length = 255)
     private String loginId;
 
+    @NotNull(message = "pwd must not be null.")
     @Column(nullable = false, length = 255)
     private String pwd;
 
+    @NotBlank(message = "nickname must not be blank.")
     @Column(nullable = false, length = 128)
     private String nickname;
 
@@ -57,5 +65,21 @@ public class User extends BaseTimeSoftDeletedAtEntity {
         user.nickname = nickname;
         user.profile = profile;
         return user;
+    }
+
+    public static User create(CreateUserCommand command) {
+        User user = new User();
+        user.userId = UserId.generateId();
+        user.projectId = command.projectId();
+        user.state = stateOrDefault(command);
+        user.loginId = command.loginId();
+        user.pwd = command.pwd();
+        user.nickname = command.nickname();
+        user.profile = command.profile();
+        return user;
+    }
+
+    private static UserState stateOrDefault(CreateUserCommand command) {
+        return command.state() != null ? command.state() : UserState.ACTIVE;
     }
 }
