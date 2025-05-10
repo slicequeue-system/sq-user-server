@@ -1,4 +1,4 @@
-package app.slicequeue.sq_user.command.domain;
+package app.slicequeue.sq_user.user.command.domain;
 
 import app.slicequeue.common.base.id_entity.BaseSnowflakeId;
 import app.slicequeue.common.snowflake.Snowflake;
