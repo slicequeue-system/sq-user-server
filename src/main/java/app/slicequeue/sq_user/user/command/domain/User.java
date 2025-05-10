@@ -3,6 +3,7 @@ package app.slicequeue.sq_user.user.command.domain;
 import app.slicequeue.common.base.time_entity.BaseTimeSoftDeletedAtEntity;
 import app.slicequeue.sq_user.common.converter.MapToJsonConverter;
 import app.slicequeue.sq_user.user.command.domain.dto.CreateUserCommand;
+import app.slicequeue.sq_user.user.command.domain.dto.UpdateUserCommand;
 import app.slicequeue.sq_user.user.command.domain.type.UserState;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -72,7 +73,7 @@ public class User extends BaseTimeSoftDeletedAtEntity {
         User user = new User();
         user.userId = UserId.generateId();
         user.projectId = command.projectId();
-        user.state = stateOrDefault(command);
+        user.state = stateOrDefault(command.state());
         user.loginId = command.loginId();
         user.pwd = command.pwd();
         user.encodePwd(passwordEncoder);
@@ -81,8 +82,8 @@ public class User extends BaseTimeSoftDeletedAtEntity {
         return user;
     }
 
-    private static UserState stateOrDefault(CreateUserCommand command) {
-        return command.state() != null ? command.state() : UserState.ACTIVE;
+    private static UserState stateOrDefault(UserState userState) {
+        return userState != null ? userState : UserState.ACTIVE;
     }
 
     private void encodePwd(PasswordEncoder passwordEncoder) {
@@ -91,5 +92,16 @@ public class User extends BaseTimeSoftDeletedAtEntity {
 
     public boolean matchPassword(String rawPwd, PasswordEncoder passwordEncoder) {
         return passwordEncoder.matches(rawPwd, this.pwd);
+    }
+
+    public void update(UpdateUserCommand command, PasswordEncoder passwordEncoder) {
+        userId = UserId.generateId();
+        projectId = command.projectId();
+        state = stateOrDefault(command.state());
+        loginId = command.loginId();
+        pwd = command.pwd();
+        encodePwd(passwordEncoder);
+        nickname = command.nickname();
+        profile = command.profile();
     }
 }

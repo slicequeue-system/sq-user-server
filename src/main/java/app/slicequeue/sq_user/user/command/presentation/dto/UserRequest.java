@@ -8,7 +8,7 @@ import lombok.Getter;
 import java.util.Map;
 
 @Getter
-public class CreateUserRequest {
+public class UserRequest {
     @NotNull(message = "프로젝트 식별값이 없습니다.")
     private Long projectId;
     private UserState state;
@@ -20,7 +20,7 @@ public class CreateUserRequest {
     private String nickname;
     private Map<String, Object> profile;
 
-    public CreateUserRequest(
+    public UserRequest(
             Long projectId,
             UserState state,
             String loginId,
@@ -35,6 +35,6 @@ public class CreateUserRequest {
         this.profile = profile;
     }
 
-    public CreateUserRequest() {
+    public UserRequest() {
     }
 }
