@@ -12,23 +12,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(name = "/v1/users")
+@RequestMapping("/v1/users")
 @RequiredArgsConstructor
 public class UserCommandController {
 
     private final CreateUserService createUserService;
     private final UpdateUserService updateUserService;
 
-
     @PostMapping
     public CommonResponse<String> create(@RequestBody @Valid UserRequest request) {
         CreateUserCommand command = CreateUserCommand.from(request);
-        return CommonResponse.success(createUserService.createUser(command).getUserId().toString());
+        return CommonResponse.success("created.", createUserService.createUser(command).getUserId().toString());
     }
 
     @PutMapping("{userId}")
     public CommonResponse<String> update(@RequestBody @Valid UserRequest request, @PathVariable Long userId) {
         UpdateUserCommand command = UpdateUserCommand.from(request, UserId.from(userId));
-        return CommonResponse.success(updateUserService.updateUser(command).getUserId().toString());
+        return CommonResponse.success("updated.", updateUserService.updateUser(command).getUserId().toString());
     }
 }

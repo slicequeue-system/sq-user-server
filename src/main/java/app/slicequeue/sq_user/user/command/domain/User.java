@@ -95,7 +95,6 @@ public class User extends BaseTimeSoftDeletedAtEntity {
     }
 
     public void update(UpdateUserCommand command, PasswordEncoder passwordEncoder) {
-        userId = UserId.generateId();
         projectId = command.projectId();
         state = stateOrDefault(command.state());
         loginId = command.loginId();
@@ -103,13 +102,5 @@ public class User extends BaseTimeSoftDeletedAtEntity {
         encodePwd(passwordEncoder);
         nickname = command.nickname();
         profile = command.profile();
-    }
-
-    private void encodePwd(PasswordEncoder passwordEncoder) {
-        this.pwd = passwordEncoder.encode(this.pwd);
-    }
-
-    public boolean matchPassword(String rawPwd, PasswordEncoder passwordEncoder) {
-        return passwordEncoder.matches(rawPwd, this.pwd);
     }
 }
