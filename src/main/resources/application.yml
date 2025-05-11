@@ -16,3 +16,10 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: sq-user-service
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: false
