@@ -1,6 +1,5 @@
-package app.slicequeue.sq_user.common.outbox_message;
+package app.slicequeue.sq_user.common.outbox_relay;
 
-import app.slicequeue.sq_user.common.converter.MapToJsonConverter;
 import app.slicequeue.sq_user.common.event.EventType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -8,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
-import java.util.Map;
 
 @Table(name = "outbox")
 @Getter
@@ -21,10 +19,17 @@ public class Outbox {
     private OutboxId outboxId;
     @Enumerated(EnumType.STRING)
     private EventType eventType;
-    @Convert(converter = MapToJsonConverter.class)
-    @Column(name = "payload_json")
-    private Map<String, Object> payload;
-    private Long targetId;
+    private String payload;
+    private Long shardKey;
     private Instant createdAt;
 
+    public static Outbox create(EventType eventType, String payload, Long shardKey) {
+        Outbox outbox = new Outbox();
+        outbox.outboxId = OutboxId.generateId();
+        outbox.eventType = eventType;
+        outbox.payload = payload;
+        outbox.shardKey = shardKey;
+        outbox.createdAt = Instant.now();
+        return outbox;
+    }
 }

@@ -1,4 +1,4 @@
-package app.slicequeue.sq_user.common.outbox_message;
+package app.slicequeue.sq_user.common.outbox_relay;
 
 import app.slicequeue.common.base.id_entity.BaseSnowflakeId;
 import app.slicequeue.common.snowflake.Snowflake;
