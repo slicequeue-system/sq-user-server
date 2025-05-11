@@ -4,7 +4,7 @@ server:
 
 spring:
   application:
-    name: sq-user
+    name: sq-user-server
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3306/sq-user}
     username: ${DB_USER}

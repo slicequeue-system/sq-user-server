@@ -7,7 +7,7 @@ CREATE TABLE users (
   state VARCHAR(32) NOT NULL COMMENT '계정 상태',
   login_id VARCHAR(255) NOT NULL COMMENT '로그인 아이디',
   pwd VARCHAR(255) NOT NULL COMMENT '비밀번호',
-  nickname VARCHAR(128) NOT NULL COMMENT '닉네임',
+  nickname VARCHAR(128) NOT NULL COMMENT '닉네임' CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   profile_json JSON NULL COMMENT '프로필 정보 JSON',
   deleted_at DATETIME(3) NULL DEFAULT NULL COMMENT '삭제 일시',
   created_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '생성 일시',
