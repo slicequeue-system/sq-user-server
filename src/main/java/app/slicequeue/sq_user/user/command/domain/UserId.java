@@ -4,13 +4,18 @@ import app.slicequeue.common.base.id_entity.BaseSnowflakeId;
 import app.slicequeue.common.snowflake.Snowflake;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserId extends BaseSnowflakeId<UserId> {
 
     static Snowflake snowflake = new Snowflake();
+
+    public UserId(Long id) {
+        super(id);
+    }
 
     @Override
     protected Snowflake getSnowflake() {
@@ -25,3 +30,4 @@ public class UserId extends BaseSnowflakeId<UserId> {
         return from(idValue, UserId.class);
     }
 }
+

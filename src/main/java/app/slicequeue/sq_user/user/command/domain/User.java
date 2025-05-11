@@ -95,7 +95,6 @@ public class User extends BaseTimeSoftDeletedAtEntity {
     }
 
     public void update(UpdateUserCommand command, PasswordEncoder passwordEncoder) {
-        userId = UserId.generateId();
         projectId = command.projectId();
         state = stateOrDefault(command.state());
         loginId = command.loginId();
