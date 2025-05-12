@@ -16,6 +16,12 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+  data:
+    redis:
+      host: ${REDIS_URL:localhost}
+      port: ${REDIS_PORT:6379}
+#      username: ${REDIS_USER}
+      password: ${REDIS_PASS} # 비밀번호만 사용
   kafka:
     bootstrap-servers: localhost:9092
     consumer:

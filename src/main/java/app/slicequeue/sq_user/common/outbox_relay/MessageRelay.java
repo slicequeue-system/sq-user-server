@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -73,7 +73,7 @@ public class MessageRelay {
         for (Long shard : assignedShard.getShards()) {
             List<Outbox> outboxes =
                     outboxRepository.findAllByShardKeyAndCreatedAtLessThanEqualOrderByCreatedAtAsc(
-                            shard, LocalDateTime.now().minusSeconds(10), Pageable.ofSize(100));
+                            shard, Instant.now().minusSeconds(10), Pageable.ofSize(100));
             for (Outbox outbox : outboxes) {
                 publishEvent(outbox);
             }
