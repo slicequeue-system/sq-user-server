@@ -1,6 +1,6 @@
 package app.slicequeue.sq_user.common.event.payload;
 
-import app.slicequeue.sq_user.common.event.EventPayload;
+import app.slicequeue.common.base.messagerelay.event.EventPayload;
 import app.slicequeue.sq_user.user.command.domain.type.UserState;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
