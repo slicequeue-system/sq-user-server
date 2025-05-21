@@ -15,3 +15,13 @@ CREATE TABLE users (
   PRIMARY KEY (user_id),
   INDEX idx_project_id_state_login_id (project_id, state, login_id)
 ) COMMENT '사용자';
+
+CREATE TABLE outbox (
+  outbox_id BIGINT NOT NULL COMMENT '아웃박스 식별값',
+  event_type VARCHAR(64) NOT NULL COMMENT '이벤트 유형',
+  shard_key BIGINT NOT NULL COMMENT '샤딩 키값, 이 값을 이용하여 인스턴스 마다 배정하여 처리함',
+  created_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '생성일시',
+  payload TEXT NOT NULL COMMENT '이벤트 송신 데이터 페이로드',
+  PRIMARY KEY (outbox_id),
+  INDEX idx_shard_key_created_at (shard_key, created_at))
+COMMENT = '이벤트 아웃박스';
