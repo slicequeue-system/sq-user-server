@@ -46,9 +46,9 @@ dependencies {
 	testRuntimeOnly 'com.h2database:h2:2.2.224'
 
 	implementation 'app.slicequeue:sq-common-resp-excp:0.0.2'
-	implementation 'app.slicequeue:sq-common-base-snowflake-id-entity:0.0.2'
+	implementation 'app.slicequeue:sq-common-base-snowflake-id-entity:0.0.4'
 	implementation 'app.slicequeue:sq-common-base-time-entity:0.0.3'
-	implementation 'app.slicequeue:sq-common-snowflake:0.0.1'
+	implementation 'app.slicequeue:sq-common-message-relay-starter:0.0.8'
 }
 
 tasks.named('test') {
