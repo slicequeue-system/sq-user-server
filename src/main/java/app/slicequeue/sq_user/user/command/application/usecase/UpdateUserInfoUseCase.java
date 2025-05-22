@@ -1,8 +1,8 @@
 package app.slicequeue.sq_user.user.command.application.usecase;
 
-import app.slicequeue.sq_user.common.event.EventType;
+import app.slicequeue.common.base.messagerelay.publisher.OutboxEventPublisher;
+import app.slicequeue.sq_user.common.event.UserEventType;
 import app.slicequeue.sq_user.common.event.payload.UserInfoChangedEventPayload;
-import app.slicequeue.sq_user.common.outbox_relay.OutboxEventPublisher;
 import app.slicequeue.sq_user.user.command.application.service.UpdateUserService;
 import app.slicequeue.sq_user.user.command.domain.User;
 import app.slicequeue.sq_user.user.command.domain.UserId;
@@ -24,7 +24,7 @@ public class UpdateUserInfoUseCase {
         User user = updateUserService.updateUser(command);
         // 이벤트 발행
         outboxEventPublisher.publish(
-                EventType.USER_INFO_CHANGED,
+                UserEventType.USER_INFO_CHANGED,
                 UserInfoChangedEventPayload.builder()
                         .userId(user.getUserId().getId())
                         .projectId(user.getProjectId())

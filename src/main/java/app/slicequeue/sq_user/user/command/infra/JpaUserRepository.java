@@ -5,7 +5,11 @@ import app.slicequeue.sq_user.user.command.domain.UserId;
 import app.slicequeue.sq_user.user.command.domain.UserRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface JpaUserRepository extends UserRepository, JpaRepository<User, UserId> {
 
     User save(User user);
+
+    Optional<User> findByUserId(UserId userId);
 }

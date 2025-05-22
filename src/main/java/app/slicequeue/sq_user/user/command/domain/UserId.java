@@ -4,7 +4,6 @@ import app.slicequeue.common.base.id_entity.BaseSnowflakeId;
 import app.slicequeue.common.snowflake.Snowflake;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Embeddable
