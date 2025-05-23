@@ -36,7 +36,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation("org.springframework.security:spring-security-crypto") // 핵심 암호화 기능만 포함
+	implementation 'org.springframework.security:spring-security-crypto' // 핵심 암호화 기능만 포함
 	implementation 'org.springframework.kafka:spring-kafka'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
@@ -48,7 +48,7 @@ dependencies {
 	implementation 'app.slicequeue:sq-common-resp-excp:0.0.2'
 	implementation 'app.slicequeue:sq-common-base-snowflake-id-entity:0.0.4'
 	implementation 'app.slicequeue:sq-common-base-time-entity:0.0.3'
-	implementation 'app.slicequeue:sq-common-message-relay-starter:0.0.2'
+	implementation 'app.slicequeue:sq-common-message-relay-starter:0.0.8'
 }
 
 tasks.named('test') {

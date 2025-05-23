@@ -1,6 +1,6 @@
 package app.slicequeue.sq_user.user.command.application.usecase;
 
-import app.slicequeue.common.base.messagerelay.publisher.OutboxEventPublisher;
+import app.slicequeue.common.messagerelay.publisher.OutboxEventPublisher;
 import app.slicequeue.sq_user.common.event.UserEventType;
 import app.slicequeue.sq_user.common.event.payload.UserInfoChangedEventPayload;
 import app.slicequeue.sq_user.user.command.application.service.UpdateUserService;
@@ -32,6 +32,8 @@ public class UpdateUserInfoUseCase {
                         .loginId(user.getLoginId())
                         .nickname(user.getNickname())
                         .profile(user.getProfile())
+                        .createdAt(user.getCreatedAt())
+                        .updatedAt(user.getUpdatedAt())
                         .build(),
                 user.getProjectId());
         return user.getUserId();
